@@ -1,9 +1,14 @@
-.tmux
-=====
+# My tmux configuration
 
-Self-contained, pretty and versatile `.tmux.conf` configuration file.
+--------
+
+* Clone from `https://github.com/gpakosz/.tmux`
+
+
+* Self-contained, pretty and versatile `.tmux.conf` configuration file.
 
 ![Screenshot](https://cloud.githubusercontent.com/assets/553208/19740585/85596a5a-9bbf-11e6-8aa1-7c8d9829c008.gif)
+
 
 Installation
 ------------
@@ -24,68 +29,6 @@ $ git clone https://github.com/gpakosz/.tmux.git
 $ ln -s -f .tmux/.tmux.conf
 $ cp .tmux/.tmux.conf.local .
 ```
-
-Then proceed to [customize] your `~/.tmux.conf.local` copy.
-
-[customize]: #enabling-the-powerline-look
-
-If you're a Vim user, setting the `$EDITOR` environment variable to `vim` will
-enable and further customize the vi-style key bindings (see tmux manual).
-
-If you're new to tmux, I recommend you read [tmux 2: Productive Mouse-Free
-Development][bhtmux2] by [@bphogan].
-
-[bhtmux2]: https://pragprog.com/book/bhtmux2/tmux-2
-[@bphogan]: https://twitter.com/bphogan
-
-Troubleshooting
----------------
-
- - **I'm running tmux `HEAD` and things don't work properly. What should I do?**
-
-   Please open an issue describing what doesn't work with upcoming tmux. I'll do
-   my best to address it.
-
- - **Status line is broken and/or gets duplicated at the bottom of the screen.
-   What gives?**
-
-   This particularly happens on Linux when the distribution provides a version
-   of glib that received Unicode 9.0 upgrades (glib `>= 2.50.1`) while providing
-   a version of glibc that didn't (glibc `< 2.26`). You may also configure
-   `LC_CTYPE` to use an `UTF-8` locale. Typically VTE based terminal emulators
-   rely on glib's `g_unichar_iswide()` function while tmux relies on glibc's
-   `wcwidth()` function. When these two functions disagree, display gets messed
-   up.
-
-   This can also happen on macOS when using iTerm2 and "Use Unicode version 9
-   character widths" is enabled in `Preferences... > Profiles > Text`
-
-   For that reason, the default `~/.tmux.conf.local` file stopped using Unicode
-   characters for which width changed in between Unicode 8.0 and 9.0 standards,
-   as well as Emojis.
-
- - **I installed Powerline and/or (patched) fonts but can't see Powerline
-   symbols.**
-
-   First, you don't need to install Powerline. You only need fonts patched with
-   Powerline symbols or the standalone `PowerlineSymbols.otf` font. Then make
-   sure your `~/.tmux.conf.local` copy uses the right code points for
-   `tmux_conf_theme_left_separator_XXX` values.
-
- - **I'm using Bash On Windows (WSL), colors and Powerline look are broken.**
-
-   There is currently a [bug][1681] in the new console powering Bash On Windows
-   preventing text attributes (bold, underscore, ...) to combine properly with
-   colors. The workaround is to search your `~/.tmux.conf.local` copy and
-   replace attributes with `'none'`.
-
-   Also, until Window's console replaces its GDI based render with a DirectWrite
-   one, Powerline symbols will be broken.
-
-   The alternative is to use the [Mintty terminal for WSL][wsltty].
-
-[1681]: https://github.com/Microsoft/BashOnWindows/issues/1681
-[wsltty]: https://github.com/mintty/wsltty
 
 Features
 --------
@@ -149,9 +92,8 @@ This configuration uses the following bindings:
  - `<prefix> C-c` creates a new session
  - `<prefix> C-f` lets you switch to another session by name
 
- - `<prefix> C-h` and `<prefix> C-l` let you navigate windows (default
-   `<prefix> n` and `<prefix> p` are unbound)
- - `<prefix> Tab` brings you to the last active window
+ - `<prefix> n` and `<prefix> p` let you navigate windows
+ - `<prefix> <prefix>` brings you to the last active window
 
  - `<prefix> -` splits the current pane vertically
  - `<prefix> _` splits the current pane horizontally
